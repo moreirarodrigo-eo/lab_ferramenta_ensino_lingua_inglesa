@@ -1,0 +1,2209 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Learning Zone</title>
+
+<style>
+:root {
+    --blue: #2457a7;
+    --blue-dark: #173e7a;
+    --blue-light: #eaf4ff;
+    --blue-mid: #4d91e8;
+    --green: #20a66a;
+    --green-light: #e7f8ef;
+    --red: #d94b55;
+    --red-light: #fff0f0;
+    --yellow: #ffca55;
+    --text: #183153;
+    --muted: #65758b;
+    --border: #d9e9fb;
+    --background: #f1f7ff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #edf6ff, #f7f9ff);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button {
+    font: inherit;
+}
+
+button:focus-visible,
+[tabindex="0"]:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+}
+
+.app {
+    width: min(1150px, 100%);
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(120deg, var(--blue-dark), #347bd0);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 12px 30px #2457a726;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-icon {
+    font-size: 48px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(23px, 4vw, 34px);
+}
+
+header p {
+    margin: 8px 0 0;
+    color: #e3edff;
+}
+
+.header-tools {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.language-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 11px;
+    border: 1px solid #ffffff55;
+    border-radius: 12px;
+    background: #ffffff14;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.language-picker select {
+    max-width: 135px;
+    border: 0;
+    outline: 0;
+    color: #173e7a;
+    background: white;
+    border-radius: 8px;
+    padding: 7px 8px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.tagline {
+    text-align: right;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* TABS */
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin: 22px 0 0;
+    padding: 7px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.tab-button {
+    flex: 1;
+    border: 0;
+    border-radius: 11px;
+    padding: 14px 12px;
+    background: transparent;
+    color: var(--muted);
+    font-weight: 750;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+.tab-button:hover {
+    background: var(--blue-light);
+}
+
+.tab-button.active {
+    background: var(--blue);
+    color: white;
+}
+
+.tab-button .tab-icon {
+    margin-right: 7px;
+}
+
+main {
+    margin-top: 16px;
+    background: white;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 8px 30px #173e7a0d;
+}
+
+.game-panel[hidden] {
+    display: none;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+h2 {
+    margin: 0 0 8px;
+    font-size: 25px;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.stats {
+    display: flex;
+    gap: 20px;
+    padding: 14px 20px;
+    background: var(--blue-light);
+    border-radius: 18px;
+}
+
+.stat {
+    min-width: 60px;
+}
+
+.stat-label {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.stat strong {
+    font-size: 24px;
+    color: var(--blue);
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(230px, .8fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.panel {
+    padding: 20px;
+    border-radius: 18px;
+    background: #f0f7ff;
+}
+
+.panel h3 {
+    margin: 0 0 12px;
+    font-size: 17px;
+}
+
+.feedback {
+    background: var(--green-light);
+    border: 1px solid #c8eed8;
+}
+
+.feedback h3 {
+    color: #13804d;
+}
+
+.feedback p {
+    margin: 0;
+    color: #286448;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.instructions {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.progress-track {
+    height: 9px;
+    background: #d4e4f5;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 14px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: var(--green);
+    border-radius: inherit;
+    transition: width .3s;
+}
+
+.progress-label {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 9px;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: 0;
+    border-radius: 12px;
+    padding: 13px 18px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: transform .15s, opacity .15s;
+}
+
+.primary-btn {
+    color: white;
+    background: linear-gradient(110deg, #347bd0, var(--blue));
+}
+
+.secondary-btn {
+    color: var(--blue);
+    background: var(--blue-light);
+    border: 1px solid var(--border);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+    transform: translateY(-2px);
+}
+
+.primary-btn:disabled,
+.secondary-btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+footer {
+    text-align: center;
+    padding: 22px 10px 6px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* =========================================
+   GAME 1: MEMORY
+========================================= */
+
+.memory-board {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    grid-template-rows: 26px minmax(0, 1fr);
+    gap: 4px;
+}
+
+.column-labels {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    text-align: center;
+    color: var(--blue);
+    font-weight: 800;
+}
+
+.row-labels {
+    grid-column: 1;
+    grid-row: 2;
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    text-align: center;
+    color: var(--blue);
+    font-weight: 800;
+}
+
+.board-area {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.memory-card {
+    position: relative;
+    min-width: 0;
+    aspect-ratio: 1;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    background: linear-gradient(145deg, #2d69b5, #19477f);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    padding: 8px 5px;
+    overflow: hidden;
+    transition: transform .18s, background .18s;
+}
+
+.memory-card:not(.flipped):not(.matched):hover {
+    transform: translateY(-3px);
+    background: #347bd0;
+}
+
+.memory-card.flipped {
+    background: #f5faff;
+    color: var(--text);
+    border-color: var(--blue-mid);
+}
+
+.memory-card.matched {
+    background: var(--green-light);
+    color: #126a43;
+    border-color: #7bd7a7;
+    cursor: default;
+}
+
+.card-back {
+    font-size: clamp(24px, 4vw, 38px);
+}
+
+.card-image {
+    width: 48%;
+    height: 48%;
+    object-fit: contain;
+}
+
+.card-word {
+    font-size: clamp(10px, 1.5vw, 15px);
+    font-weight: 750;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.coordinate {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #dbeafe;
+    pointer-events: none;
+}
+
+.memory-card.flipped .coordinate,
+.memory-card.matched .coordinate {
+    color: var(--blue);
+}
+
+/* =========================================
+   GAME 2: GRAMMAR QUEST
+========================================= */
+
+.grammar-shell {
+    background: linear-gradient(145deg, #f5f9ff, #edf5ff);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 24px;
+}
+
+.grammar-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 30px;
+    background: #fff2cc;
+    color: #805500;
+    font-weight: 750;
+    font-size: 13px;
+}
+
+.question-count {
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.grammar-progress {
+    margin: 18px 0 24px;
+}
+
+.grammar-progress .progress-track {
+    margin: 0;
+}
+
+.question-card {
+    padding: 22px;
+    border: 1px solid #e0eaf7;
+    background: white;
+    border-radius: 18px;
+}
+
+.question-emoji {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.question-card h3 {
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+
+.question-instruction {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 22px;
+}
+
+.sentence {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    font-size: clamp(19px, 2.5vw, 25px);
+    font-weight: 650;
+    line-height: 2;
+    padding: 16px;
+    background: #f7faff;
+    border-radius: 14px;
+    border: 1px solid #e3edf9;
+}
+
+.sentence-word {
+    display: inline-block;
+}
+
+.drop-slot {
+    min-width: 105px;
+    min-height: 45px;
+    padding: 4px 12px;
+    border: 2px dashed #83b1ed;
+    border-radius: 10px;
+    background: #edf5ff;
+    color: var(--blue);
+    font-size: 17px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: background .2s, border .2s;
+}
+
+.drop-slot:empty::before {
+    content: "Drop here";
+    font-size: 12px;
+    font-weight: 600;
+    color: #7d9bc1;
+}
+
+.drop-slot.drag-over {
+    background: #dcecff;
+    border-color: var(--blue);
+}
+
+.drop-slot.filled {
+    border-style: solid;
+    background: #e4efff;
+}
+
+.drop-slot.correct {
+    border: 2px solid var(--green);
+    background: var(--green-light);
+    color: #126a43;
+}
+
+.drop-slot.incorrect {
+    border: 2px solid var(--red);
+    background: var(--red-light);
+    color: #a12d36;
+}
+
+.word-bank-title {
+    margin: 23px 0 11px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--muted);
+}
+
+.word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 48px;
+}
+
+.word-chip {
+    padding: 11px 17px;
+    border: 1px solid #c8ddf7;
+    border-radius: 12px;
+    background: white;
+    color: var(--blue);
+    font-weight: 750;
+    cursor: grab;
+    box-shadow: 0 3px 7px #173e7a0a;
+    transition: transform .15s, background .15s;
+    user-select: none;
+}
+
+.word-chip:hover {
+    background: var(--blue-light);
+    transform: translateY(-2px);
+}
+
+.word-chip:active {
+    cursor: grabbing;
+}
+
+.word-chip.selected {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+}
+
+.word-chip.used {
+    opacity: .35;
+    cursor: default;
+    text-decoration: line-through;
+}
+
+.grammar-feedback {
+    display: none;
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 12px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.grammar-feedback.visible {
+    display: block;
+}
+
+.grammar-feedback.success {
+    color: #126a43;
+    background: var(--green-light);
+    border: 1px solid #b7e7cb;
+}
+
+.grammar-feedback.error {
+    color: #a12d36;
+    background: var(--red-light);
+    border: 1px solid #f2c5c8;
+}
+
+.grammar-feedback.neutral {
+    color: var(--blue-dark);
+    background: var(--blue-light);
+    border: 1px solid var(--border);
+}
+
+.grammar-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.grammar-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, .8fr);
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.tip-panel,
+.streak-panel {
+    padding: 17px;
+    border-radius: 15px;
+    background: white;
+    border: 1px solid #e0eaf7;
+}
+
+.tip-panel h4,
+.streak-panel h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+}
+
+.tip-panel p,
+.streak-panel p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.grammar-complete {
+    display: none;
+    text-align: center;
+    padding: 28px 18px;
+    margin-top: 20px;
+    background: var(--green-light);
+    border-radius: 18px;
+    border: 1px solid #b7e7cb;
+}
+
+.grammar-complete.visible {
+    display: block;
+}
+
+.grammar-complete .trophy {
+    font-size: 52px;
+}
+
+.grammar-complete h3 {
+    color: #126a43;
+    margin: 8px 0;
+    font-size: 25px;
+}
+
+.grammar-complete p {
+    color: #286448;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 760px) {
+    body {
+        padding: 12px;
+    }
+
+    header {
+        padding: 22px 18px;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    .header-tools {
+        align-items: flex-end;
+    }
+
+    .language-picker {
+        gap: 5px;
+        padding: 7px;
+    }
+
+    .language-picker select {
+        max-width: 112px;
+        padding: 6px 5px;
+    }
+
+    main {
+        padding: 18px 12px;
+    }
+
+    .game-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stats {
+        width: 100%;
+        justify-content: space-around;
+        gap: 8px;
+        padding: 14px 10px;
+    }
+
+    .stat {
+        min-width: 0;
+    }
+
+    .memory-grid {
+        gap: 8px;
+    }
+
+    .memory-card {
+        border-radius: 10px;
+        padding: 5px 3px;
+        gap: 4px;
+    }
+
+    .coordinate {
+        top: 4px;
+        left: 5px;
+        font-size: 10px;
+    }
+
+    .tabs {
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .tab-button {
+        padding: 12px 6px;
+        font-size: 13px;
+    }
+
+    .tab-button .tab-icon {
+        margin-right: 3px;
+    }
+
+    .grammar-shell {
+        padding: 14px;
+    }
+
+    .question-card {
+        padding: 15px;
+    }
+
+    .sentence {
+        gap: 7px;
+        padding: 12px;
+    }
+
+    .drop-slot {
+        min-width: 85px;
+        min-height: 40px;
+        padding: 4px 8px;
+        font-size: 15px;
+    }
+
+    .word-chip {
+        padding: 10px 13px;
+    }
+
+    .grammar-bottom {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .grammar-actions button {
+        flex: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+    <div class="brand">
+        <span class="brand-icon" aria-hidden="true">📚</span>
+        <div>
+            <h1>English Learning Zone</h1>
+            <p>Play · Learn · Improve</p>
+        </div>
+    </div>
+    <div class="header-tools">
+        <div class="tagline">Small steps,<br>big progress!</div>
+        <label class="language-picker">
+            <span aria-hidden="true">🌐</span>
+            <span id="languageLabel">Language</span>
+            <select id="languageSelect" aria-label="Choose page language">
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+                <option value="es">Español</option>
+            </select>
+        </label>
+    </div>
+</header>
+
+<nav class="tabs" aria-label="Choose a game">
+    <button class="tab-button active"
+            id="tabMemory"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="gameMemory">
+        <span class="tab-icon">🧠</span> Memory Match
+    </button>
+
+    <button class="tab-button"
+            id="tabGrammar"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="gameGrammar">
+        <span class="tab-icon">✍️</span> Grammar Quest
+    </button>
+</nav>
+
+<main>
+
+<!-- =====================================
+     GAME 1: VOCABULARY MEMORY MATCH
+===================================== -->
+
+<section class="game-panel"
+         id="gameMemory"
+         role="tabpanel"
+         aria-labelledby="tabMemory">
+
+    <div class="topbar">
+        <div>
+            <h2>Vocabulary Memory Match</h2>
+            <p class="subtitle">
+                Combine a palavra em inglês com sua tradução correta.
+            </p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-label">⭐ Score</span>
+                <strong id="memoryScore">0</strong>
+            </div>
+            <div class="stat">
+                <span class="stat-label">🎯 Pairs</span>
+                <strong id="memoryPairs">0/6</strong>
+            </div>
+            <div class="stat">
+                <span class="stat-label">🔄 Moves</span>
+                <strong id="memoryMoves">0</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-layout">
+        <section aria-label="Memory board">
+            <div class="memory-board">
+                <div class="column-labels" aria-hidden="true">
+                    <span>A</span><span>B</span><span>C</span><span>D</span>
+                </div>
+
+                <div class="row-labels" aria-hidden="true">
+                    <span>1</span><span>2</span><span>3</span>
+                </div>
+
+                <div class="board-area">
+                    <div class="memory-grid" id="memoryGrid"></div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <section class="panel feedback" aria-live="polite">
+                <h3 id="memoryFeedbackTitle">🌟 Ready to play?</h3>
+                <p id="memoryFeedbackText">
+                    Find the matching English word and Portuguese translation!
+                </p>
+
+                <div class="progress-track"
+                     id="memoryProgressTrack"
+                     role="progressbar"
+                     aria-label="Memory game progress"
+                     aria-valuemin="0"
+                     aria-valuemax="6"
+                     aria-valuenow="0">
+                    <div class="progress-bar" id="memoryProgressBar"></div>
+                </div>
+
+                <div class="progress-label" id="memoryProgressLabel">
+                    0 of 6 pairs found
+                </div>
+            </section>
+
+            <section class="panel">
+                <h3>💡 How to play</h3>
+                <ol class="instructions">
+                    <li>Choose a card by its coordinate.</li>
+                    <li>Find the English word and its translation.</li>
+                    <li>Correct pair: +10 points.</li>
+                    <li>Wrong pair: -2 points.</li>
+                    <li>Match all pairs to win!</li>
+                </ol>
+            </section>
+
+            <button class="primary-btn" id="restartMemory" type="button">
+                ↻ Restart Game
+            </button>
+        </aside>
+    </div>
+</section>
+
+<!-- =====================================
+     GAME 2: GRAMMAR QUEST
+===================================== -->
+
+<section class="game-panel"
+         id="gameGrammar"
+         role="tabpanel"
+         aria-labelledby="tabGrammar"
+         hidden>
+
+    <div class="topbar">
+        <div>
+            <h2>✍️ Grammar Quest</h2>
+            <p class="subtitle">
+                Drag the correct word into each sentence and become a grammar hero!
+            </p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-label">⭐ Score</span>
+                <strong id="grammarScore">0</strong>
+            </div>
+            <div class="stat">
+                <span class="stat-label">🏅 Correct</span>
+                <strong id="grammarCorrect">0/8</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="grammar-shell">
+        <div class="grammar-heading">
+            <span class="level-badge" id="grammarLevel">🌱 Level 1 · Beginner</span>
+            <span class="question-count" id="questionCount">Challenge 1 of 8</span>
+        </div>
+
+        <div class="grammar-progress">
+            <div class="progress-track"
+                 id="grammarProgressTrack"
+                 role="progressbar"
+                 aria-label="Grammar quest progress"
+                 aria-valuemin="0"
+                 aria-valuemax="8"
+                 aria-valuenow="0">
+                <div class="progress-bar" id="grammarProgressBar"></div>
+            </div>
+        </div>
+
+        <div id="grammarPlayArea">
+            <section class="question-card">
+                <div class="question-emoji" id="questionEmoji">🎯</div>
+                <h3 id="questionTitle">Complete the sentence!</h3>
+                <p class="question-instruction" id="questionInstruction">
+                    Drag a word into the empty space. You can also click a word and then click the space.
+                </p>
+
+                <div class="sentence" id="sentenceArea"
+                     aria-label="Sentence with missing word"></div>
+
+                <p class="word-bank-title">🧩 WORD BANK — choose a word</p>
+                <div class="word-bank" id="wordBank"></div>
+
+                <div class="grammar-feedback"
+                     id="grammarFeedback"
+                     role="status"
+                     aria-live="polite"></div>
+
+                <div class="grammar-actions">
+                    <button class="primary-btn" id="checkGrammar" type="button">
+                        ✓ Check Answer
+                    </button>
+                    <button class="secondary-btn" id="clearGrammar" type="button">
+                        ↺ Try Again
+                    </button>
+                    <button class="secondary-btn" id="nextGrammar" type="button" hidden>
+                        Next Challenge →
+                    </button>
+                </div>
+            </section>
+
+            <div class="grammar-bottom">
+                <section class="tip-panel">
+                    <h4>📘 Grammar Tip</h4>
+                    <p id="grammarTip">
+                        Read the whole sentence before choosing your answer.
+                    </p>
+                </section>
+
+                <section class="streak-panel">
+                    <h4>🔥 Learning Streak</h4>
+                    <p id="grammarStreak">
+                        Complete challenges to build your streak!
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <section class="grammar-complete" id="grammarComplete">
+            <div class="trophy">🏆</div>
+            <h3>Grammar Quest Completed!</h3>
+            <p id="grammarFinalText"></p>
+            <button class="primary-btn" id="restartGrammar" type="button">
+                ↻ Play Again
+            </button>
+        </section>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    Every word learned is a step forward. Keep going!
+</footer>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================
+   TAB NAVIGATION
+========================================= */
+
+const tabMemory = document.getElementById("tabMemory");
+const tabGrammar = document.getElementById("tabGrammar");
+const gameMemory = document.getElementById("gameMemory");
+const gameGrammar = document.getElementById("gameGrammar");
+
+function selectTab(name) {
+    const isMemory = name === "memory";
+
+    gameMemory.hidden = !isMemory;
+    gameGrammar.hidden = isMemory;
+
+    tabMemory.classList.toggle("active", isMemory);
+    tabGrammar.classList.toggle("active", !isMemory);
+
+    tabMemory.setAttribute("aria-selected", String(isMemory));
+    tabGrammar.setAttribute("aria-selected", String(!isMemory));
+}
+
+tabMemory.addEventListener("click", () => selectTab("memory"));
+tabGrammar.addEventListener("click", () => selectTab("grammar"));
+
+/* =========================================
+   GAME 1: MEMORY MATCH
+========================================= */
+
+const vocabPairs = [
+    { en: "Apple", pt: "Maçã", emoji: "🍎" },
+    { en: "Book", pt: "Livro", emoji: "📘" },
+    { en: "Dog", pt: "Cachorro", emoji: "🐶" },
+    { en: "Water", pt: "Água", emoji: "💧" },
+    { en: "House", pt: "Casa", emoji: "🏠" },
+    { en: "Car", pt: "Carro", emoji: "🚗" }
+];
+
+const COLUMNS = "ABCD";
+
+let flippedCards = [];
+let matchedPairs = 0;
+let memoryScore = 0;
+let memoryMoves = 0;
+let memoryLocked = false;
+let memoryFinished = false;
+let memoryTurnId = 0;
+
+const memoryGrid = document.getElementById("memoryGrid");
+
+function shuffle(array) {
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+    }
+
+    return result;
+}
+
+function getCoordinate(position) {
+    return COLUMNS[position % 4] + (Math.floor(position / 4) + 1);
+}
+
+function createMemoryCard(card, position) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "memory-card";
+    button.dataset.coordinate = getCoordinate(position);
+    button.setAttribute("aria-pressed", "false");
+    button.setAttribute("aria-label", "Hidden card " + button.dataset.coordinate);
+
+    const coordinate = document.createElement("span");
+    coordinate.className = "coordinate";
+    coordinate.textContent = button.dataset.coordinate;
+    coordinate.setAttribute("aria-hidden", "true");
+
+    const back = document.createElement("span");
+    back.className = "card-back";
+    back.textContent = "📖";
+    back.setAttribute("aria-hidden", "true");
+
+    const image = document.createElement("img");
+    image.className = "card-image";
+    image.alt = "";
+    image.hidden = true;
+    image.draggable = false;
+
+    const word = document.createElement("span");
+    word.className = "card-word";
+    word.hidden = true;
+
+    button.append(coordinate, back, image, word);
+
+    button.cardImage = image;
+    button.cardWord = word;
+    button.cardBack = back;
+
+    button.addEventListener("click", () => flipMemoryCard(button, card));
+
+    return button;
+}
+
+function revealMemoryCard(element, card) {
+    element.classList.add("flipped");
+    element.setAttribute("aria-pressed", "true");
+    element.setAttribute(
+        "aria-label",
+        element.dataset.coordinate + ": " + card.text
+    );
+
+    element.cardBack.hidden = true;
+    element.cardImage.hidden = false;
+    element.cardWord.hidden = false;
+
+    const codePoints = [...card.emoji]
+        .map(char => char.codePointAt(0).toString(16))
+        .join("-");
+
+    element.cardImage.onerror = () => {
+        element.cardImage.hidden = true;
+        element.cardWord.textContent = card.emoji + " " + card.text;
+    };
+
+    element.cardImage.src =
+        "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/"
+        + codePoints + ".png";
+
+    element.cardWord.textContent = card.text;
+}
+
+function hideMemoryCard(element) {
+    element.classList.remove("flipped");
+    element.setAttribute("aria-pressed", "false");
+    element.setAttribute(
+        "aria-label",
+        "Hidden card " + element.dataset.coordinate
+    );
+
+    element.cardBack.hidden = false;
+    element.cardImage.hidden = true;
+    element.cardWord.hidden = true;
+}
+
+function initMemoryGame() {
+    memoryTurnId++;
+
+    flippedCards = [];
+    matchedPairs = 0;
+    memoryScore = 0;
+    memoryMoves = 0;
+    memoryLocked = false;
+    memoryFinished = false;
+
+    memoryGrid.innerHTML = "";
+
+    const cards = [];
+
+    vocabPairs.forEach((pair, index) => {
+        cards.push({
+            id: index,
+            type: "en",
+            text: pair.en,
+            emoji: pair.emoji
+        });
+
+        cards.push({
+            id: index,
+            type: "pt",
+            text: pair.pt,
+            emoji: pair.emoji
+        });
+    });
+
+    shuffle(cards).forEach((card, position) => {
+        memoryGrid.appendChild(createMemoryCard(card, position));
+    });
+
+    updateMemoryStats();
+
+    document.getElementById("memoryFeedbackTitle").textContent =
+        "🌟 Ready to play?";
+
+    document.getElementById("memoryFeedbackText").textContent =
+        "Find the matching English word and Portuguese translation!";
+}
+
+function flipMemoryCard(element, card) {
+    if (
+        memoryLocked ||
+        memoryFinished ||
+        element.classList.contains("flipped") ||
+        element.classList.contains("matched")
+    ) {
+        return;
+    }
+
+    revealMemoryCard(element, card);
+    flippedCards.push({ element, card });
+
+    if (flippedCards.length === 2) {
+        memoryMoves++;
+        memoryLocked = true;
+        updateMemoryStats();
+
+        const currentTurn = ++memoryTurnId;
+
+        setTimeout(() => {
+            if (currentTurn !== memoryTurnId) return;
+            checkMemoryMatch(currentTurn);
+        }, 700);
+    }
+}
+
+function checkMemoryMatch(currentTurn) {
+    if (currentTurn !== memoryTurnId || flippedCards.length !== 2) return;
+
+    const [first, second] = flippedCards;
+
+    const isMatch =
+        first.card.id === second.card.id &&
+        first.card.type !== second.card.type;
+
+    if (isMatch) {
+        first.element.classList.add("matched");
+        second.element.classList.add("matched");
+
+        first.element.setAttribute("aria-label",
+            first.element.dataset.coordinate + ": " + first.card.text + ", matched");
+
+        second.element.setAttribute("aria-label",
+            second.element.dataset.coordinate + ": " + second.card.text + ", matched");
+
+        matchedPairs++;
+        memoryScore += 10;
+
+        document.getElementById("memoryFeedbackTitle").textContent =
+            "🎉 Excellent!";
+
+        document.getElementById("memoryFeedbackText").textContent =
+            "Correct match! You earned 10 points. Keep going!";
+    } else {
+        memoryScore = Math.max(0, memoryScore - 2);
+
+        document.getElementById("memoryFeedbackTitle").textContent =
+            "💪 Try again!";
+
+        document.getElementById("memoryFeedbackText").textContent =
+            "Not a match. You lost 2 points. Remember the words and try again!";
+    }
+
+    const toHide = isMatch ? [] : [first.element, second.element];
+
+    flippedCards = [];
+
+    if (matchedPairs === vocabPairs.length) {
+        memoryFinished = true;
+
+        document.getElementById("memoryFeedbackTitle").textContent =
+            "🏆 You did it!";
+
+        document.getElementById("memoryFeedbackText").textContent =
+            `All pairs matched! Final score: ${memoryScore} points in ${memoryMoves} moves.`;
+    }
+
+    updateMemoryStats();
+
+    if (toHide.length) {
+        const hideTurn = memoryTurnId;
+
+        setTimeout(() => {
+            if (hideTurn !== memoryTurnId) return;
+            toHide.forEach(hideMemoryCard);
+            memoryLocked = false;
+        }, 450);
+    } else {
+        memoryLocked = false;
+    }
+}
+
+function updateMemoryStats() {
+    document.getElementById("memoryScore").textContent = memoryScore;
+    document.getElementById("memoryPairs").textContent =
+        `${matchedPairs}/${vocabPairs.length}`;
+    document.getElementById("memoryMoves").textContent = memoryMoves;
+
+    const percentage = matchedPairs / vocabPairs.length * 100;
+
+    document.getElementById("memoryProgressBar").style.width =
+        percentage + "%";
+
+    document.getElementById("memoryProgressLabel").textContent =
+        `${matchedPairs} of ${vocabPairs.length} pairs found`;
+
+    document.getElementById("memoryProgressTrack")
+        .setAttribute("aria-valuenow", matchedPairs);
+}
+
+document.getElementById("restartMemory")
+    .addEventListener("click", initMemoryGame);
+
+/* =========================================
+   GAME 2: GRAMMAR QUEST
+========================================= */
+
+/*
+Each challenge contains:
+- sentence: sentence parts, with "___" marking the blank
+- answer: correct word
+- choices: available words
+- tip: grammar explanation
+- reason: explanation shown after checking
+*/
+
+const grammarChallenges = [
+    {
+        level: "🌱 Level 1 · Beginner",
+        emoji: "🐱",
+        title: "Choose the correct verb!",
+        sentence: ["She", "___", "happy."],
+        answer: "is",
+        choices: ["are", "is", "am", "be"],
+        tip: "Use IS with he, she and it. Example: She is happy.",
+        reason: "We use IS because the subject is SHE."
+    },
+    {
+        level: "🌱 Level 1 · Beginner",
+        emoji: "🏫",
+        title: "Complete the sentence!",
+        sentence: ["They", "___", "students."],
+        answer: "are",
+        choices: ["is", "am", "are", "be"],
+        tip: "Use ARE with you, we and they.",
+        reason: "THEY is plural, so we use ARE."
+    },
+    {
+        level: "🌱 Level 1 · Beginner",
+        emoji: "🍎",
+        title: "Find the missing article!",
+        sentence: ["I", "have", "___", "apple."],
+        answer: "an",
+        choices: ["a", "an", "the", "is"],
+        tip: "Use AN before a vowel sound, as in an apple or an orange.",
+        reason: "APPLE starts with a vowel sound, so AN is correct."
+    },
+    {
+        level: "🌿 Level 2 · Elementary",
+        emoji: "🏃",
+        title: "Present Simple challenge!",
+        sentence: ["He", "___", "to school every day."],
+        answer: "goes",
+        choices: ["go", "going", "goes", "gone"],
+        tip: "In the present simple, he/she/it usually takes -s or -es.",
+        reason: "With HE, the verb GO becomes GOES."
+    },
+    {
+        level: "🌿 Level 2 · Elementary",
+        emoji: "🌧️",
+        title: "Choose the right tense!",
+        sentence: ["Yesterday, we", "___", "a movie."],
+        answer: "watched",
+        choices: ["watch", "watches", "watched", "watching"],
+        tip: "Use the past simple for completed actions in the past.",
+        reason: "YESTERDAY indicates the past. The past of WATCH is WATCHED."
+    },
+    {
+        level: "🌿 Level 2 · Elementary",
+        emoji: "🥤",
+        title: "Much or many?",
+        sentence: ["How", "___", "water do you drink?"],
+        answer: "much",
+        choices: ["many", "much", "few", "several"],
+        tip: "Use MUCH with uncountable nouns, such as water, milk and time.",
+        reason: "WATER is generally uncountable, so we use MUCH."
+    },
+    {
+        level: "🌳 Level 3 · Intermediate",
+        emoji: "✈️",
+        title: "Complete with the correct form!",
+        sentence: ["If it rains, we", "___", "at home."],
+        answer: "will stay",
+        choices: ["stayed", "will stay", "stays", "staying"],
+        tip: "First conditional: IF + present simple, WILL + base verb.",
+        reason: "This sentence describes a possible future situation: IF IT RAINS, WE WILL STAY."
+    },
+    {
+        level: "🌳 Level 3 · Intermediate",
+        emoji: "📚",
+        title: "Present Perfect mission!",
+        sentence: ["She", "___", "finished her homework."],
+        answer: "has",
+        choices: ["have", "has", "had", "is"],
+        tip: "Present perfect uses HAVE/HAS + past participle. Use HAS with he, she or it.",
+        reason: "SHE takes HAS: She has finished her homework."
+    }
+];
+
+let grammarIndex = 0;
+let grammarScore = 0;
+let grammarCorrect = 0;
+let grammarStreak = 0;
+let grammarBestStreak = 0;
+let selectedWord = null;
+let placedWord = null;
+let grammarChecked = false;
+let grammarAttempts = 0;
+let grammarSessionId = 0;
+
+const sentenceArea = document.getElementById("sentenceArea");
+const wordBank = document.getElementById("wordBank");
+const grammarFeedback = document.getElementById("grammarFeedback");
+
+function currentChallenge() {
+    return grammarChallenges[grammarIndex];
+}
+
+function showGrammarFeedback(message, type) {
+    grammarFeedback.textContent = message;
+    grammarFeedback.className = "grammar-feedback visible " + type;
+}
+
+function hideGrammarFeedback() {
+    grammarFeedback.textContent = "";
+    grammarFeedback.className = "grammar-feedback";
+}
+
+function renderGrammarChallenge() {
+    const challenge = currentChallenge();
+
+    selectedWord = null;
+    placedWord = null;
+    grammarChecked = false;
+    grammarAttempts = 0;
+
+    document.getElementById("grammarLevel").textContent = challenge.level;
+    document.getElementById("questionCount").textContent =
+        `Challenge ${grammarIndex + 1} of ${grammarChallenges.length}`;
+
+    document.getElementById("questionEmoji").textContent = challenge.emoji;
+    document.getElementById("questionTitle").textContent = challenge.title;
+    document.getElementById("grammarTip").textContent = challenge.tip;
+
+    sentenceArea.innerHTML = "";
+    wordBank.innerHTML = "";
+    hideGrammarFeedback();
+
+    document.getElementById("checkGrammar").hidden = false;
+    document.getElementById("clearGrammar").hidden = false;
+    document.getElementById("nextGrammar").hidden = true;
+
+    document.getElementById("grammarPlayArea").hidden = false;
+    document.getElementById("grammarComplete").classList.remove("visible");
+
+    challenge.sentence.forEach(part => {
+        if (part === "___") {
+            const slot = document.createElement("button");
+
+            slot.type = "button";
+            slot.className = "drop-slot";
+            slot.dataset.slot = "answer";
+            slot.setAttribute("aria-label", "Empty answer space");
+
+            slot.addEventListener("click", () => handleSlotClick(slot));
+
+            slot.addEventListener("dragover", event => {
+                if (grammarChecked) return;
+                event.preventDefault();
+                slot.classList.add("drag-over");
+            });
+
+            slot.addEventListener("dragleave", () => {
+                slot.classList.remove("drag-over");
+            });
+
+            slot.addEventListener("drop", event => {
+                event.preventDefault();
+                slot.classList.remove("drag-over");
+
+                if (grammarChecked) return;
+
+                const wordId = event.dataTransfer.getData("text/plain");
+                const chip = document.querySelector(
+                    `.word-chip[data-word-id="${wordId}"]`
+                );
+
+                if (chip) placeWordInSlot(chip);
+            });
+
+            sentenceArea.appendChild(slot);
+        } else {
+            const span = document.createElement("span");
+            span.className = "sentence-word";
+            span.textContent = part;
+            sentenceArea.appendChild(span);
+        }
+    });
+
+    const choices = shuffle(challenge.choices);
+
+    choices.forEach((word, index) => {
+        const chip = document.createElement("button");
+
+        chip.type = "button";
+        chip.className = "word-chip";
+        chip.textContent = word;
+        chip.draggable = true;
+        chip.dataset.wordId = String(index);
+        chip.dataset.word = word;
+        chip.setAttribute("aria-pressed", "false");
+
+        chip.addEventListener("click", () => handleWordClick(chip));
+
+        chip.addEventListener("dragstart", event => {
+            if (grammarChecked || chip.classList.contains("used")) {
+                event.preventDefault();
+                return;
+            }
+
+            selectedWord = chip;
+            event.dataTransfer.setData("text/plain", chip.dataset.wordId);
+            event.dataTransfer.effectAllowed = "move";
+        });
+
+        wordBank.appendChild(chip);
+    });
+
+    document.getElementById("grammarProgressBar").style.width =
+        grammarIndex / grammarChallenges.length * 100 + "%";
+
+    document.getElementById("grammarProgressTrack")
+        .setAttribute("aria-valuenow", grammarIndex);
+
+    document.getElementById("grammarStreak").textContent =
+        grammarStreak > 0
+            ? `You're on a ${grammarStreak}-answer streak! Keep going!`
+            : "Answer correctly to start your streak!";
+}
+
+function handleWordClick(chip) {
+    if (grammarChecked || chip.classList.contains("used")) return;
+
+    if (selectedWord === chip) {
+        chip.classList.remove("selected");
+        chip.setAttribute("aria-pressed", "false");
+        selectedWord = null;
+        return;
+    }
+
+    if (selectedWord) {
+        selectedWord.classList.remove("selected");
+        selectedWord.setAttribute("aria-pressed", "false");
+    }
+
+    selectedWord = chip;
+    chip.classList.add("selected");
+    chip.setAttribute("aria-pressed", "true");
+
+    const slot = sentenceArea.querySelector(".drop-slot");
+
+    if (slot && !slot.textContent.trim()) {
+        showGrammarFeedback(
+            `"${chip.dataset.word}" selected. Now click the empty space.`,
+            "neutral"
+        );
+    }
+}
+
+function handleSlotClick(slot) {
+    if (grammarChecked) return;
+
+    if (selectedWord && !selectedWord.classList.contains("used")) {
+        placeWordInSlot(selectedWord);
+        return;
+    }
+
+    if (placedWord) {
+        placedWord.classList.remove("used");
+        placedWord.classList.remove("selected");
+        placedWord.setAttribute("aria-pressed", "false");
+        placedWord = null;
+
+        slot.textContent = "";
+        slot.classList.remove("filled", "correct", "incorrect");
+
+        hideGrammarFeedback();
+    } else {
+        showGrammarFeedback(
+            "First choose a word from the word bank.",
+            "neutral"
+        );
+    }
+}
+
+function placeWordInSlot(chip) {
+    if (grammarChecked || chip.classList.contains("used")) return;
+
+    const slot = sentenceArea.querySelector(".drop-slot");
+
+    if (!slot) return;
+
+    if (placedWord) {
+        placedWord.classList.remove("used", "selected");
+        placedWord.setAttribute("aria-pressed", "false");
+    }
+
+    placedWord = chip;
+    selectedWord = null;
+
+    chip.classList.remove("selected");
+    chip.classList.add("used");
+    chip.setAttribute("aria-pressed", "false");
+
+    slot.textContent = chip.dataset.word;
+    slot.classList.add("filled");
+    slot.classList.remove("correct", "incorrect");
+
+    hideGrammarFeedback();
+}
+
+function checkGrammarAnswer() {
+    if (grammarChecked) return;
+
+    grammarAttempts++;
+
+    const challenge = currentChallenge();
+    const slot = sentenceArea.querySelector(".drop-slot");
+
+    if (!placedWord || !slot || !slot.textContent.trim()) {
+        showGrammarFeedback(
+            "🤔 Choose a word and place it in the empty space first!",
+            "neutral"
+        );
+        return;
+    }
+
+    const answer = placedWord.dataset.word;
+    const isCorrect = answer === challenge.answer;
+
+    grammarChecked = true;
+
+    document.querySelectorAll(".word-chip").forEach(chip => {
+        chip.draggable = false;
+        chip.classList.remove("selected");
+        chip.setAttribute("aria-pressed", "false");
+    });
+
+    if (isCorrect) {
+        slot.classList.add("correct");
+
+        const points = grammarAttempts === 1 ? 10 : 5;
+        grammarScore += points;
+        grammarCorrect++;
+        grammarStreak++;
+        grammarBestStreak = Math.max(grammarBestStreak, grammarStreak);
+
+        showGrammarFeedback(
+            `🎉 Correct! +${points} points. ${challenge.reason}`,
+            "success"
+        );
+    } else {
+        slot.classList.add("incorrect");
+        grammarStreak = 0;
+
+        showGrammarFeedback(
+            `Not quite! The correct answer is "${challenge.answer}". ${challenge.reason}`,
+            "error"
+        );
+    }
+
+    updateGrammarStats();
+
+    document.getElementById("checkGrammar").hidden = true;
+    document.getElementById("clearGrammar").hidden = true;
+
+    const nextButton = document.getElementById("nextGrammar");
+    nextButton.hidden = false;
+
+    nextButton.textContent =
+        grammarIndex === grammarChallenges.length - 1
+            ? "See Results 🏆"
+            : "Next Challenge →";
+}
+
+function clearGrammarAnswer() {
+    if (grammarChecked) return;
+
+    const slot = sentenceArea.querySelector(".drop-slot");
+
+    if (placedWord) {
+        placedWord.classList.remove("used", "selected");
+        placedWord.setAttribute("aria-pressed", "false");
+        placedWord = null;
+    }
+
+    if (selectedWord) {
+        selectedWord.classList.remove("selected");
+        selectedWord.setAttribute("aria-pressed", "false");
+        selectedWord = null;
+    }
+
+    if (slot) {
+        slot.textContent = "";
+        slot.classList.remove("filled", "correct", "incorrect");
+    }
+
+    hideGrammarFeedback();
+}
+
+function updateGrammarStats() {
+    document.getElementById("grammarScore").textContent = grammarScore;
+
+    document.getElementById("grammarCorrect").textContent =
+        `${grammarCorrect}/${grammarChallenges.length}`;
+
+    document.getElementById("grammarStreak").textContent =
+        grammarStreak > 0
+            ? `🔥 ${grammarStreak} correct answer${grammarStreak === 1 ? "" : "s"} in a row! Best streak: ${grammarBestStreak}.`
+            : `Best streak: ${grammarBestStreak}. Get a correct answer to start a new streak!`;
+}
+
+function nextGrammarChallenge() {
+    if (!grammarChecked) return;
+
+    if (grammarIndex < grammarChallenges.length - 1) {
+        grammarIndex++;
+        renderGrammarChallenge();
+        return;
+    }
+
+    finishGrammarQuest();
+}
+
+function finishGrammarQuest() {
+    document.getElementById("grammarPlayArea").hidden = true;
+
+    const complete = document.getElementById("grammarComplete");
+    complete.classList.add("visible");
+
+    document.getElementById("grammarFinalText").textContent =
+        `You earned ${grammarScore} points and answered ` +
+        `${grammarCorrect} out of ${grammarChallenges.length} challenges correctly. ` +
+        `Your best streak was ${grammarBestStreak}. ` +
+        (grammarCorrect === grammarChallenges.length
+            ? "Perfect score! You're a grammar superstar!"
+            : "Great effort! Play again to improve your score.");
+
+    document.getElementById("grammarProgressBar").style.width = "100%";
+    document.getElementById("grammarProgressTrack")
+        .setAttribute("aria-valuenow", grammarChallenges.length);
+}
+
+function restartGrammarQuest() {
+    grammarSessionId++;
+    grammarIndex = 0;
+    grammarScore = 0;
+    grammarCorrect = 0;
+    grammarStreak = 0;
+    grammarBestStreak = 0;
+    selectedWord = null;
+    placedWord = null;
+    grammarChecked = false;
+    grammarAttempts = 0;
+
+    updateGrammarStats();
+    renderGrammarChallenge();
+}
+
+document.getElementById("checkGrammar")
+    .addEventListener("click", checkGrammarAnswer);
+
+document.getElementById("clearGrammar")
+    .addEventListener("click", clearGrammarAnswer);
+
+document.getElementById("nextGrammar")
+    .addEventListener("click", nextGrammarChallenge);
+
+document.getElementById("restartGrammar")
+    .addEventListener("click", restartGrammarQuest);
+
+
+/* =========================================
+   PAGE LANGUAGE
+   Translates interface/help text only.
+   Learning vocabulary and English sentences stay unchanged.
+========================================= */
+const pageTranslations = {
+    pt: {
+        "Language": "Idioma",
+        "Choose a game": "Escolha um jogo",
+        "Play · Learn · Improve": "Jogue · Aprenda · Melhore",
+        "Small steps,": "Pequenos passos,",
+        "big progress!": "grandes conquistas!",
+        "Vocabulary Memory Match": "Jogo da Memória de Vocabulário",
+        "Combine a palavra em inglês com sua tradução correta.": "Combine a palavra em inglês com sua tradução correta.",
+        "⭐ Score": "⭐ Pontuação",
+        "🎯 Pairs": "🎯 Pares",
+        "🔄 Moves": "🔄 Jogadas",
+        "Memory board": "Tabuleiro da memória",
+        "🌟 Ready to play?": "🌟 Pronto para jogar?",
+        "Find the matching English word and Portuguese translation!": "Encontre a palavra em inglês e sua tradução em português!",
+        "Memory game progress": "Progresso do jogo da memória",
+        "0 of 6 pairs found": "0 de 6 pares encontrados",
+        "💡 How to play": "💡 Como jogar",
+        "Choose a card by its coordinate.": "Escolha uma carta usando sua coordenada.",
+        "Find the English word and its translation.": "Encontre a palavra em inglês e sua tradução.",
+        "Correct pair: +10 points.": "Par correto: +10 pontos.",
+        "Wrong pair: -2 points.": "Par incorreto: -2 pontos.",
+        "Match all pairs to win!": "Encontre todos os pares para vencer!",
+        "↻ Restart Game": "↻ Reiniciar jogo",
+        "✍️ Grammar Quest": "✍️ Desafio de Gramática",
+        "Drag the correct word into each sentence and become a grammar hero!": "Arraste a palavra correta para cada frase e torne-se um herói da gramática!",
+        "🏅 Correct": "🏅 Corretas",
+        "Grammar quest progress": "Progresso do desafio de gramática",
+        "Complete the sentence!": "Complete a frase!",
+        "Drag a word into the empty space. You can also click a word and then click the space.": "Arraste uma palavra para o espaço vazio. Você também pode clicar em uma palavra e depois no espaço.",
+        "🧩 WORD BANK — choose a word": "🧩 BANCO DE PALAVRAS — escolha uma palavra",
+        "✓ Check Answer": "✓ Conferir resposta",
+        "↺ Try Again": "↺ Tentar novamente",
+        "Next Challenge →": "Próximo desafio →",
+        "📘 Grammar Tip": "📘 Dica de gramática",
+        "Read the whole sentence before choosing your answer.": "Leia a frase inteira antes de escolher sua resposta.",
+        "🔥 Learning Streak": "🔥 Sequência de acertos",
+        "Complete challenges to build your streak!": "Complete os desafios para aumentar sua sequência!",
+        "Grammar Quest Completed!": "Desafio de gramática concluído!",
+        "↻ Play Again": "↻ Jogar novamente",
+        "Every word learned is a step forward. Keep going!": "Cada palavra aprendida é um passo adiante. Continue assim!",
+        "🌟 Ready to play?": "🌟 Pronto para jogar?",
+        "🎉 Excellent!": "🎉 Excelente!",
+        "Correct match! You earned 10 points. Keep going!": "Par correto! Você ganhou 10 pontos. Continue!",
+        "💪 Try again!": "💪 Tente novamente!",
+        "Not a match. You lost 2 points. Remember the words and try again!": "Não formam um par. Você perdeu 2 pontos. Memorize as palavras e tente novamente!",
+        "🏆 You did it!": "🏆 Você conseguiu!",
+        "Choose the correct verb!": "Escolha o verbo correto!",
+        "Complete the sentence!": "Complete a frase!",
+        "Find the missing article!": "Encontre o artigo que falta!",
+        "Present Simple challenge!": "Desafio de presente simples!",
+        "Choose the right tense!": "Escolha o tempo verbal correto!",
+        "Much or many?": "Much ou many?",
+        "Complete with the correct form!": "Complete com a forma correta!",
+        "Present Perfect mission!": "Missão: presente perfeito!",
+        "Use IS with he, she and it. Example: She is happy.": "Use IS com he, she e it. Exemplo: She is happy.",
+        "We use IS because the subject is SHE.": "Usamos IS porque o sujeito é SHE.",
+        "Use ARE with you, we and they.": "Use ARE com you, we e they.",
+        "THEY is plural, so we use ARE.": "THEY está no plural, por isso usamos ARE.",
+        "Use AN before a vowel sound, as in an apple or an orange.": "Use AN antes de um som de vogal, como em an apple ou an orange.",
+        "APPLE starts with a vowel sound, so AN is correct.": "APPLE começa com som de vogal, por isso AN está correto.",
+        "In the present simple, he/she/it usually takes -s or -es.": "No presente simples, he/she/it geralmente recebe -s ou -es no verbo.",
+        "With HE, the verb GO becomes GOES.": "Com HE, o verbo GO passa a ser GOES.",
+        "Use the past simple for completed actions in the past.": "Use o passado simples para ações concluídas no passado.",
+        "YESTERDAY indicates the past. The past of WATCH is WATCHED.": "YESTERDAY indica passado. O passado de WATCH é WATCHED.",
+        "Use MUCH with uncountable nouns, such as water, milk and time.": "Use MUCH com substantivos incontáveis, como water, milk e time.",
+        "WATER is generally uncountable, so we use MUCH.": "WATER geralmente é incontável, por isso usamos MUCH.",
+        "First conditional: IF + present simple, WILL + base verb.": "Primeiro condicional: IF + presente simples, WILL + verbo na forma base.",
+        "This sentence describes a possible future situation: IF IT RAINS, WE WILL STAY.": "Esta frase descreve uma possibilidade futura: IF IT RAINS, WE WILL STAY.",
+        "Present perfect uses HAVE/HAS + past participle. Use HAS with he, she or it.": "O presente perfeito usa HAVE/HAS + particípio passado. Use HAS com he, she ou it.",
+        "SHE takes HAS: She has finished her homework.": "SHE usa HAS: She has finished her homework.",
+        "First choose a word from the word bank.": "Primeiro, escolha uma palavra no banco de palavras.",
+        "🤔 Choose a word and place it in the empty space first!": "🤔 Primeiro, escolha uma palavra e coloque-a no espaço vazio!",
+        "You're on a {n}-answer streak! Keep going!": "Você acertou {n} respostas seguidas! Continue!",
+        "Answer correctly to start your streak!": "Acerte uma resposta para começar sua sequência!",
+        "Perfect score! You're a grammar superstar!": "Pontuação perfeita! Você é uma estrela da gramática!",
+        "Great effort! Play again to improve your score.": "Muito bem! Jogue novamente para melhorar sua pontuação.",
+        "See Results 🏆": "Ver resultados 🏆",
+        "Best streak: {n}. Get a correct answer to start a new streak!": "Melhor sequência: {n}. Acerte uma resposta para iniciar outra sequência!",
+        "🔥 {n} correct answer in a row! Best streak: {best}.": "🔥 {n} resposta correta seguida! Melhor sequência: {best}.",
+        "🔥 {n} correct answers in a row! Best streak: {best}.": "🔥 {n} respostas corretas seguidas! Melhor sequência: {best}.",
+        "Correct! +{points} points. {reason}": "Correto! +{points} pontos. {reason}",
+        "Not quite! The correct answer is \"{answer}\". {reason}": "Não exatamente! A resposta correta é \"{answer}\". {reason}",
+        "\"{word}\" selected. Now click the empty space.": "\"{word}\" selecionada. Agora clique no espaço vazio.",
+        "Hidden card {coordinate}": "Carta oculta {coordinate}",
+        "{coordinate}: {text}, matched": "{coordinate}: {text}, par encontrado"
+    },
+    es: {
+        "Language": "Idioma",
+        "Choose a game": "Elige un juego",
+        "Play · Learn · Improve": "Juega · Aprende · Mejora",
+        "Small steps,": "Pequeños pasos,",
+        "big progress!": "¡grandes logros!",
+        "Vocabulary Memory Match": "Memoria de vocabulario",
+        "Combine a palavra em inglês com sua tradução correta.": "Relaciona la palabra en inglés con su traducción correcta.",
+        "⭐ Score": "⭐ Puntuación",
+        "🎯 Pairs": "🎯 Parejas",
+        "🔄 Moves": "🔄 Intentos",
+        "Memory board": "Tablero de memoria",
+        "🌟 Ready to play?": "🌟 ¿Listo para jugar?",
+        "Find the matching English word and Portuguese translation!": "¡Encuentra la palabra en inglés y su traducción al portugués!",
+        "Memory game progress": "Progreso del juego de memoria",
+        "0 of 6 pairs found": "0 de 6 parejas encontradas",
+        "💡 How to play": "💡 Cómo jugar",
+        "Choose a card by its coordinate.": "Elige una tarjeta usando su coordenada.",
+        "Find the English word and its translation.": "Encuentra la palabra en inglés y su traducción.",
+        "Correct pair: +10 points.": "Pareja correcta: +10 puntos.",
+        "Wrong pair: -2 points.": "Pareja incorrecta: -2 puntos.",
+        "Match all pairs to win!": "¡Encuentra todas las parejas para ganar!",
+        "↻ Restart Game": "↻ Reiniciar juego",
+        "✍️ Grammar Quest": "✍️ Reto de gramática",
+        "Drag the correct word into each sentence and become a grammar hero!": "Arrastra la palabra correcta a cada oración y conviértete en un héroe de la gramática.",
+        "🏅 Correct": "🏅 Correctas",
+        "Grammar quest progress": "Progreso del reto de gramática",
+        "Complete the sentence!": "¡Completa la oración!",
+        "Drag a word into the empty space. You can also click a word and then click the space.": "Arrastra una palabra al espacio vacío. También puedes hacer clic en una palabra y luego en el espacio.",
+        "🧩 WORD BANK — choose a word": "🧩 BANCO DE PALABRAS — elige una palabra",
+        "✓ Check Answer": "✓ Comprobar respuesta",
+        "↺ Try Again": "↺ Intentar de nuevo",
+        "Next Challenge →": "Siguiente reto →",
+        "📘 Grammar Tip": "📘 Consejo gramatical",
+        "Read the whole sentence before choosing your answer.": "Lee toda la oración antes de elegir tu respuesta.",
+        "🔥 Learning Streak": "🔥 Racha de aciertos",
+        "Complete challenges to build your streak!": "Completa retos para aumentar tu racha.",
+        "Grammar Quest Completed!": "¡Reto de gramática completado!",
+        "↻ Play Again": "↻ Jugar otra vez",
+        "Every word learned is a step forward. Keep going!": "Cada palabra aprendida es un paso adelante. ¡Sigue así!",
+        "🎉 Excellent!": "🎉 ¡Excelente!",
+        "Correct match! You earned 10 points. Keep going!": "¡Pareja correcta! Ganaste 10 puntos. ¡Sigue así!",
+        "💪 Try again!": "💪 ¡Inténtalo de nuevo!",
+        "Not a match. You lost 2 points. Remember the words and try again!": "No forman una pareja. Perdiste 2 puntos. Recuerda las palabras e inténtalo de nuevo.",
+        "🏆 You did it!": "🏆 ¡Lo lograste!",
+        "Choose the correct verb!": "¡Elige el verbo correcto!",
+        "Find the missing article!": "¡Encuentra el artículo que falta!",
+        "Present Simple challenge!": "¡Reto de presente simple!",
+        "Choose the right tense!": "¡Elige el tiempo verbal correcto!",
+        "Much or many?": "¿Much o many?",
+        "Complete with the correct form!": "¡Completa con la forma correcta!",
+        "Present Perfect mission!": "¡Misión de presente perfecto!",
+        "Use IS with he, she and it. Example: She is happy.": "Usa IS con he, she e it. Ejemplo: She is happy.",
+        "We use IS because the subject is SHE.": "Usamos IS porque el sujeto es SHE.",
+        "Use ARE with you, we and they.": "Usa ARE con you, we y they.",
+        "THEY is plural, so we use ARE.": "THEY está en plural, por eso usamos ARE.",
+        "Use AN before a vowel sound, as in an apple or an orange.": "Usa AN antes de un sonido vocálico, como en an apple o an orange.",
+        "APPLE starts with a vowel sound, so AN is correct.": "APPLE comienza con un sonido vocálico, por eso AN es correcto.",
+        "In the present simple, he/she/it usually takes -s or -es.": "En presente simple, he/she/it suele llevar -s o -es en el verbo.",
+        "With HE, the verb GO becomes GOES.": "Con HE, el verbo GO se convierte en GOES.",
+        "Use the past simple for completed actions in the past.": "Usa el pasado simple para acciones terminadas en el pasado.",
+        "YESTERDAY indicates the past. The past of WATCH is WATCHED.": "YESTERDAY indica pasado. El pasado de WATCH es WATCHED.",
+        "Use MUCH with uncountable nouns, such as water, milk and time.": "Usa MUCH con sustantivos incontables, como water, milk y time.",
+        "WATER is generally uncountable, so we use MUCH.": "WATER generalmente es incontable, por eso usamos MUCH.",
+        "First conditional: IF + present simple, WILL + base verb.": "Primer condicional: IF + presente simple, WILL + verbo en forma base.",
+        "This sentence describes a possible future situation: IF IT RAINS, WE WILL STAY.": "Esta oración describe una posibilidad futura: IF IT RAINS, WE WILL STAY.",
+        "Present perfect uses HAVE/HAS + past participle. Use HAS with he, she or it.": "El presente perfecto usa HAVE/HAS + participio pasado. Usa HAS con he, she o it.",
+        "SHE takes HAS: She has finished her homework.": "SHE usa HAS: She has finished her homework.",
+        "First choose a word from the word bank.": "Primero, elige una palabra del banco de palabras.",
+        "🤔 Choose a word and place it in the empty space first!": "🤔 ¡Primero elige una palabra y colócala en el espacio vacío!",
+        "Answer correctly to start your streak!": "¡Responde correctamente para comenzar tu racha!",
+        "Perfect score! You're a grammar superstar!": "¡Puntuación perfecta! ¡Eres una estrella de la gramática!",
+        "Great effort! Play again to improve your score.": "¡Buen trabajo! Juega otra vez para mejorar tu puntuación.",
+        "See Results 🏆": "Ver resultados 🏆",
+        "Hidden card {coordinate}": "Tarjeta oculta {coordinate}",
+        "{coordinate}: {text}, matched": "{coordinate}: {text}, pareja encontrada"
+    }
+};
+
+const languageSelect = document.getElementById("languageSelect");
+const languageLabel = document.getElementById("languageLabel");
+const originalTextNodes = new WeakMap();
+const originalAttributes = new WeakMap();
+let currentPageLanguage = "en";
+
+function translateTemplate(text, language) {
+    const dictionary = pageTranslations[language] || {};
+    if (dictionary[text]) return dictionary[text];
+
+    // Translate dynamic messages while preserving scores, answers and explanations.
+    if (language === "pt") {
+        let match = text.match(/^Challenge (\d+) of (\d+)$/);
+        if (match) return `Desafio ${match[1]} de ${match[2]}`;
+        match = text.match(/^You're on a (\d+)-answer streak! Keep going!$/);
+        if (match) return `Você acertou ${match[1]} respostas seguidas! Continue!`;
+        match = text.match(/^Best streak: (\d+)\. Get a correct answer to start a new streak!$/);
+        if (match) return `Melhor sequência: ${match[1]}. Acerte uma resposta para iniciar outra sequência!`;
+        match = text.match(/^🔥 (\d+) correct answers? in a row! Best streak: (\d+)\.$/);
+        if (match) return `🔥 ${match[1]} resposta(s) correta(s) seguida(s)! Melhor sequência: ${match[2]}.`;
+        match = text.match(/^Correct! \+(\d+) points\. (.+)$/);
+        if (match) return `Correto! +${match[1]} pontos. ${translateTemplate(match[2], language)}`;
+        match = text.match(/^Not quite! The correct answer is "(.+) "\. (.+)$/);
+        if (match) return `Não exatamente! A resposta correta é "${match[1]}". ${translateTemplate(match[2], language)}`;
+        match = text.match(/^Not quite! The correct answer is "(.+)"\. (.+)$/);
+        if (match) return `Não exatamente! A resposta correta é "${match[1]}". ${translateTemplate(match[2], language)}`;
+        match = text.match(/^"(.+)" selected\. Now click the empty space\.$/);
+        if (match) return `"${match[1]}" selecionada. Agora clique no espaço vazio.`;
+        match = text.match(/^All pairs matched! Final score: (\d+) points in (\d+) moves\.$/);
+        if (match) return `Todos os pares encontrados! Pontuação final: ${match[1]} pontos em ${match[2]} jogadas.`;
+        match = text.match(/^You earned (\d+) points and answered (\d+) out of (\d+) challenges correctly\. Your best streak was (\d+)\. (.+)$/);
+        if (match) return `Você fez ${match[1]} pontos e acertou ${match[2]} de ${match[3]} desafios. Sua melhor sequência foi ${match[4]}. ${translateTemplate(match[5], language)}`;
+        match = text.match(/^Level (\d+) · (.+)$/);
+        if (match) return `Nível ${match[1]} · ${({"Beginner":"Iniciante","Elementary":"Básico","Intermediate":"Intermediário"}[match[2]] || match[2])}`;
+        match = text.match(/^Challenge (\d+) of (\d+)$/);
+        if (match) return `Desafio ${match[1]} de ${match[2]}`;
+    }
+    if (language === "es") {
+        let match = text.match(/^Challenge (\d+) of (\d+)$/);
+        if (match) return `Reto ${match[1]} de ${match[2]}`;
+        match = text.match(/^You're on a (\d+)-answer streak! Keep going!$/);
+        if (match) return `¡Has acertado ${match[1]} respuestas seguidas! ¡Sigue así!`;
+        match = text.match(/^Best streak: (\d+)\. Get a correct answer to start a new streak!$/);
+        if (match) return `Mejor racha: ${match[1]}. ¡Acierta una respuesta para comenzar otra racha!`;
+        match = text.match(/^🔥 (\d+) correct answers? in a row! Best streak: (\d+)\.$/);
+        if (match) return `🔥 ¡${match[1]} respuestas correctas seguidas! Mejor racha: ${match[2]}.`;
+        match = text.match(/^Correct! \+(\d+) points\. (.+)$/);
+        if (match) return `¡Correcto! +${match[1]} puntos. ${translateTemplate(match[2], language)}`;
+        match = text.match(/^Not quite! The correct answer is "(.+)"\. (.+)$/);
+        if (match) return `¡Casi! La respuesta correcta es "${match[1]}". ${translateTemplate(match[2], language)}`;
+        match = text.match(/^"(.+)" selected\. Now click the empty space\.$/);
+        if (match) return `"${match[1]}" seleccionada. Ahora haz clic en el espacio vacío.`;
+        match = text.match(/^All pairs matched! Final score: (\d+) points in (\d+) moves\.$/);
+        if (match) return `¡Encontraste todas las parejas! Puntuación final: ${match[1]} puntos en ${match[2]} intentos.`;
+        match = text.match(/^Level (\d+) · (.+)$/);
+        if (match) return `Nivel ${match[1]} · ${({"Beginner":"Principiante","Elementary":"Elemental","Intermediate":"Intermedio"}[match[2]] || match[2])}`;
+    }
+    return text;
+}
+
+function shouldTranslateTextNode(node) {
+    const parent = node.parentElement;
+    if (!parent) return false;
+    // Keep the actual learning material unchanged: vocabulary cards, sentence words and answer choices.
+    if (parent.closest(".card-word, .sentence-word, .word-chip")) return false;
+    return true;
+}
+
+function applyLanguage(language) {
+    currentPageLanguage = language;
+    document.documentElement.lang = language === "pt" ? "pt-BR" : language;
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(node => {
+        if (!shouldTranslateTextNode(node)) return;
+        if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
+        const original = originalTextNodes.get(node);
+        node.nodeValue = language === "en" ? original : translateTemplate(original, language);
+    });
+
+    const attributeTranslations = {
+        pt: {
+            "aria-label": {
+                "Choose a game": "Escolha um jogo",
+                "Memory board": "Tabuleiro da memória",
+                "Memory game progress": "Progresso do jogo da memória",
+                "Grammar quest progress": "Progresso do desafio de gramática",
+                "Sentence with missing word": "Frase com palavra ausente",
+                "Empty answer space": "Espaço vazio para resposta"
+            }
+        },
+        es: {
+            "aria-label": {
+                "Choose a game": "Elige un juego",
+                "Memory board": "Tablero de memoria",
+                "Memory game progress": "Progreso del juego de memoria",
+                "Grammar quest progress": "Progreso del reto de gramática",
+                "Sentence with missing word": "Oración con palabra ausente",
+                "Empty answer space": "Espacio vacío para responder"
+            }
+        }
+    };
+
+    document.querySelectorAll("[aria-label]").forEach(el => {
+        if (!originalAttributes.has(el)) originalAttributes.set(el, el.getAttribute("aria-label"));
+        const original = originalAttributes.get(el);
+        const translated = attributeTranslations[language]?.["aria-label"]?.[original];
+        el.setAttribute("aria-label", language === "en" ? original : (translated || original));
+    });
+
+    languageLabel.textContent = language === "pt" ? "Idioma" : language === "es" ? "Idioma" : "Language";
+}
+
+languageSelect.addEventListener("change", event => applyLanguage(event.target.value));
+
+/* Translate text added or updated by game feedback without translating game content. */
+const interfaceObserver = new MutationObserver(records => {
+    records.forEach(record => {
+        if (record.type === "characterData") {
+            const node = record.target;
+            if (!shouldTranslateTextNode(node)) return;
+            if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
+            const original = originalTextNodes.get(node);
+            const translated = currentPageLanguage === "en" ? original : translateTemplate(original, currentPageLanguage);
+            if (node.nodeValue !== translated) node.nodeValue = translated;
+        } else {
+            record.addedNodes.forEach(added => {
+                if (added.nodeType === Node.TEXT_NODE && shouldTranslateTextNode(added)) {
+                    if (!originalTextNodes.has(added)) originalTextNodes.set(added, added.nodeValue);
+                    const original = originalTextNodes.get(added);
+                    const translated = currentPageLanguage === "en" ? original : translateTemplate(original, currentPageLanguage);
+                    if (added.nodeValue !== translated) added.nodeValue = translated;
+                } else if (added.nodeType === Node.ELEMENT_NODE) {
+                    const walker = document.createTreeWalker(added, NodeFilter.SHOW_TEXT);
+                    while (walker.nextNode()) {
+                        const node = walker.currentNode;
+                        if (!shouldTranslateTextNode(node)) continue;
+                        if (!originalTextNodes.has(node)) originalTextNodes.set(node, node.nodeValue);
+                        const original = originalTextNodes.get(node);
+                        const translated = currentPageLanguage === "en" ? original : translateTemplate(original, currentPageLanguage);
+                        if (node.nodeValue !== translated) node.nodeValue = translated;
+                    }
+                }
+            });
+        }
+    });
+});
+interfaceObserver.observe(document.body, { subtree: true, childList: true, characterData: true });
+
+/* START BOTH GAMES */
+
+initMemoryGame();
+restartGrammarQuest();
+</script>
+</body>
+</html>
