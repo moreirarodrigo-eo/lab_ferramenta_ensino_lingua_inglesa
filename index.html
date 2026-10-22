@@ -12,10 +12,8 @@
     --blue-light: #eaf4ff;
     --blue-mid: #4d91e8;
     --green: #20a66a;
-    --red: #e85d5d;
     --text: #183153;
     --muted: #65758b;
-    --white: #ffffff;
 }
 
 * {
@@ -115,7 +113,7 @@ h2 {
 }
 
 .stat {
-    min-width: 85px;
+    min-width: 65px;
 }
 
 .stat-label {
@@ -137,6 +135,46 @@ h2 {
     align-items: start;
 }
 
+/* TABULEIRO COM COORDENADAS */
+
+.memory-board {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    grid-template-rows: 26px minmax(0, 1fr);
+    gap: 4px;
+    width: 100%;
+}
+
+.column-labels {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    text-align: center;
+    color: var(--blue);
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.row-labels {
+    grid-column: 1;
+    grid-row: 2;
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    text-align: center;
+    color: var(--blue);
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.board-area {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+}
+
 .memory-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -144,6 +182,7 @@ h2 {
 }
 
 .card {
+    position: relative;
     min-width: 0;
     aspect-ratio: 1 / 1;
     border: 2px solid #d9e9fb;
@@ -156,7 +195,7 @@ h2 {
     justify-content: center;
     flex-direction: column;
     gap: 7px;
-    padding: 6px;
+    padding: 8px 5px;
     box-shadow: 0 4px 8px #173e7a12;
     transition: transform .18s, background .18s, border .18s;
     overflow: hidden;
@@ -198,6 +237,22 @@ h2 {
     font-weight: 700;
     overflow-wrap: anywhere;
     text-align: center;
+}
+
+.coordinate {
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 800;
+    color: #dbeafe;
+    pointer-events: none;
+}
+
+.card.flipped .coordinate,
+.card.matched .coordinate {
+    color: var(--blue);
 }
 
 @keyframes pop {
@@ -314,7 +369,7 @@ footer {
     }
 
     .game-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .memory-grid {
@@ -323,7 +378,7 @@ footer {
 
     .card {
         border-radius: 11px;
-        padding: 4px;
+        padding: 6px 3px;
         gap: 4px;
     }
 
@@ -331,9 +386,21 @@ footer {
         font-size: clamp(10px, 2.8vw, 14px);
     }
 
+    .coordinate {
+        top: 4px;
+        left: 5px;
+        font-size: 10px;
+    }
+
     .stats {
         width: 100%;
         justify-content: space-around;
+        gap: 8px;
+        padding: 14px 10px;
+    }
+
+    .stat {
+        min-width: 0;
     }
 }
 
@@ -357,6 +424,7 @@ footer {
                 <p>Play · Learn · Improve</p>
             </div>
         </div>
+
         <div class="tagline">
             Small steps,<br>big progress!
         </div>
@@ -376,10 +444,12 @@ footer {
                     <span class="stat-label">⭐ Score</span>
                     <strong id="score">0</strong>
                 </div>
+
                 <div class="stat">
                     <span class="stat-label">🎯 Pairs</span>
                     <strong id="pairs">0/6</strong>
                 </div>
+
                 <div class="stat">
                     <span class="stat-label">🔄 Moves</span>
                     <strong id="moves">0</strong>
@@ -388,26 +458,49 @@ footer {
         </div>
 
         <div class="game-layout">
-            <section aria-label="Tabuleiro do jogo">
-                <div class="memory-grid" id="memoryGrid"></div>
+            <section aria-label="Tabuleiro do jogo de memória">
+                <div class="memory-board">
+
+                    <div class="column-labels" aria-hidden="true">
+                        <span>A</span>
+                        <span>B</span>
+                        <span>C</span>
+                        <span>D</span>
+                    </div>
+
+                    <div class="row-labels" aria-hidden="true">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                    </div>
+
+                    <div class="board-area">
+                        <div class="memory-grid" id="memoryGrid"></div>
+                    </div>
+
+                </div>
             </section>
 
             <aside class="sidebar">
                 <section class="panel feedback" aria-live="polite">
                     <h3 id="feedbackTitle">🌟 Ready to play?</h3>
+
                     <p id="feedbackText">
                         Find the matching English word and Portuguese translation!
                     </p>
 
-                    <div class="progress-track"
-                         role="progressbar"
-                         aria-label="Progresso do jogo"
-                         aria-valuemin="0"
-                         aria-valuemax="6"
-                         aria-valuenow="0"
-                         id="progressTrack">
+                    <div
+                        class="progress-track"
+                        id="progressTrack"
+                        role="progressbar"
+                        aria-label="Progresso do jogo"
+                        aria-valuemin="0"
+                        aria-valuemax="6"
+                        aria-valuenow="0"
+                    >
                         <div class="progress-bar" id="progressBar"></div>
                     </div>
+
                     <div class="progress-label" id="progressLabel">
                         0 of 6 pairs found
                     </div>
@@ -415,13 +508,18 @@ footer {
 
                 <section class="panel">
                     <h3>💡 How to play</h3>
+
                     <ol class="instructions">
-                        <li>Click on a card to reveal it.</li>
+                        <li>Choose a card by its coordinate.</li>
                         <li>Find the English word and its translation.</li>
                         <li>Correct pair: +10 points.</li>
                         <li>Wrong pair: -2 points.</li>
                         <li>Match all pairs to win!</li>
                     </ol>
+
+                    <p class="subtitle" style="margin-top: 12px; font-size: 13px;">
+                        Example: A1, C2 or D3.
+                    </p>
                 </section>
 
                 <button class="primary-btn" id="restartBtn" type="button">
@@ -439,15 +537,18 @@ footer {
 <script>
 "use strict";
 
-// VOCABULARY: add or edit words here.
+// VOCABULARY: edit or add new pairs here.
 const vocabPairs = [
-    { en: "Apple",   pt: "Maçã",      emoji: "🍎" },
-    { en: "Book",    pt: "Livro",     emoji: "📘" },
-    { en: "Dog",     pt: "Cachorro",  emoji: "🐶" },
-    { en: "Water",   pt: "Água",      emoji: "💧" },
-    { en: "House",   pt: "Casa",      emoji: "🏠" },
-    { en: "Car",     pt: "Carro",     emoji: "🚗" }
+    { en: "Apple",  pt: "Maçã",     emoji: "🍎" },
+    { en: "Book",   pt: "Livro",    emoji: "📘" },
+    { en: "Dog",    pt: "Cachorro", emoji: "🐶" },
+    { en: "Water",  pt: "Água",     emoji: "💧" },
+    { en: "House",  pt: "Casa",     emoji: "🏠" },
+    { en: "Car",    pt: "Carro",    emoji: "🚗" }
 ];
+
+const COLUMNS = "ABCD";
+const ROWS = 3;
 
 let flippedCards = [];
 let matchedPairs = 0;
@@ -468,7 +569,6 @@ const progressLabel = document.getElementById("progressLabel");
 const progressTrack = document.getElementById("progressTrack");
 
 function shuffle(array) {
-    // Fisher-Yates: shuffle cards fairly.
     const result = [...array];
 
     for (let i = result.length - 1; i > 0; i--) {
@@ -479,13 +579,28 @@ function shuffle(array) {
     return result;
 }
 
-function createCard(card) {
+// Coordinate examples: A1, B1, C1, D1, A2...
+function getCoordinate(position) {
+    const row = Math.floor(position / COLUMNS.length) + 1;
+    const column = COLUMNS[position % COLUMNS.length];
+
+    return column + row;
+}
+
+function createCard(card, position) {
     const button = document.createElement("button");
 
     button.type = "button";
     button.className = "card";
-    button.setAttribute("aria-label", "Hidden card");
+    button.dataset.coordinate = getCoordinate(position);
+    button.setAttribute("aria-label",
+        "Hidden card at " + button.dataset.coordinate);
     button.setAttribute("aria-pressed", "false");
+
+    const coordinate = document.createElement("span");
+    coordinate.className = "coordinate";
+    coordinate.textContent = button.dataset.coordinate;
+    coordinate.setAttribute("aria-hidden", "true");
 
     const back = document.createElement("span");
     back.className = "card-back";
@@ -502,11 +617,10 @@ function createCard(card) {
     word.className = "card-word";
     word.hidden = true;
 
-    button.append(back, image, word);
+    button.append(coordinate, back, image, word);
 
     button.addEventListener("click", () => flipCard(button, card));
 
-    // Store references for updating the card.
     button.cardImage = image;
     button.cardWord = word;
     button.cardBack = back;
@@ -517,26 +631,27 @@ function createCard(card) {
 function revealCard(element, card) {
     element.classList.add("flipped");
     element.setAttribute("aria-pressed", "true");
-    element.setAttribute("aria-label", card.text);
+    element.setAttribute(
+        "aria-label",
+        element.dataset.coordinate + ": " + card.text
+    );
 
     element.cardBack.hidden = true;
     element.cardImage.hidden = false;
     element.cardWord.hidden = false;
 
-    // Twemoji provides consistent illustrated emoji images.
-    // If the image service is unavailable, the native emoji is used.
     const codePoints = [...card.emoji]
         .map(char => char.codePointAt(0).toString(16))
         .join("-");
-
-    element.cardImage.src =
-        "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/"
-        + codePoints + ".png";
 
     element.cardImage.onerror = () => {
         element.cardImage.hidden = true;
         element.cardWord.textContent = card.emoji + " " + card.text;
     };
+
+    element.cardImage.src =
+        "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/"
+        + codePoints + ".png";
 
     element.cardWord.textContent = card.text;
 }
@@ -544,7 +659,10 @@ function revealCard(element, card) {
 function hideCard(element) {
     element.classList.remove("flipped");
     element.setAttribute("aria-pressed", "false");
-    element.setAttribute("aria-label", "Hidden card");
+    element.setAttribute(
+        "aria-label",
+        "Hidden card at " + element.dataset.coordinate
+    );
 
     element.cardBack.hidden = false;
     element.cardImage.hidden = true;
@@ -552,7 +670,7 @@ function hideCard(element) {
 }
 
 function initMemoryGame() {
-    // Invalidate any pending turn.
+    // Cancel any pending turn from the previous game.
     turnId++;
 
     flippedCards = [];
@@ -582,8 +700,8 @@ function initMemoryGame() {
         });
     });
 
-    shuffle(cards).forEach(card => {
-        grid.appendChild(createCard(card));
+    shuffle(cards).forEach((card, position) => {
+        grid.appendChild(createCard(card, position));
     });
 
     updateStats();
@@ -613,15 +731,16 @@ function flipCard(element, card) {
 
         const currentTurn = ++turnId;
 
-        // Short pause lets the player see both cards.
         setTimeout(() => {
             if (currentTurn !== turnId) return;
-            checkMatch();
+            checkMatch(currentTurn);
         }, 700);
     }
 }
 
-function checkMatch() {
+function checkMatch(currentTurn) {
+    if (currentTurn !== turnId || flippedCards.length !== 2) return;
+
     const [first, second] = flippedCards;
 
     const isMatch =
@@ -632,8 +751,17 @@ function checkMatch() {
         first.element.classList.add("matched");
         second.element.classList.add("matched");
 
-        first.element.setAttribute("aria-label", first.card.text + ", matched");
-        second.element.setAttribute("aria-label", second.card.text + ", matched");
+        first.element.setAttribute(
+            "aria-label",
+            first.element.dataset.coordinate + ": " +
+            first.card.text + ", matched"
+        );
+
+        second.element.setAttribute(
+            "aria-label",
+            second.element.dataset.coordinate + ": " +
+            second.card.text + ", matched"
+        );
 
         matchedPairs++;
         score += 10;
@@ -647,22 +775,13 @@ function checkMatch() {
         feedbackTitle.textContent = "💪 Try again!";
         feedbackText.textContent =
             "Not a match. You lost 2 points. Remember the words and try again!";
-
-        const firstElement = first.element;
-        const secondElement = second.element;
-
-        setTimeout(() => {
-            // Do not hide cards from a newly restarted game.
-            if (gameFinished) return;
-            hideCard(firstElement);
-            hideCard(secondElement);
-        }, 350);
     }
 
-    flippedCards = [];
-    locked = false;
+    const cardsToHide = isMatch
+        ? []
+        : [first.element, second.element];
 
-    updateStats();
+    flippedCards = [];
 
     if (matchedPairs === vocabPairs.length) {
         gameFinished = true;
@@ -670,8 +789,21 @@ function checkMatch() {
         feedbackTitle.textContent = "🏆 You did it!";
         feedbackText.textContent =
             `All pairs matched! Final score: ${score} points in ${moves} moves.`;
+    }
 
-        progressLabel.textContent = "All pairs completed! Great job!";
+    updateStats();
+
+    if (cardsToHide.length > 0) {
+        const hideTurn = turnId;
+
+        setTimeout(() => {
+            if (hideTurn !== turnId) return;
+
+            cardsToHide.forEach(hideCard);
+            locked = false;
+        }, 450);
+    } else {
+        locked = false;
     }
 }
 
