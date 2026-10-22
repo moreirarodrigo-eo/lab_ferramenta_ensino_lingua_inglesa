@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Learning Zone</title>
+
+<style>
+:root {
+    --blue: #2457a7;
+    --blue-light: #eaf4ff;
+    --blue-mid: #4d91e8;
+    --green: #20a66a;
+    --red: #e85d5d;
+    --text: #183153;
+    --muted: #65758b;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #edf6ff, #f7f9ff);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button {
+    font: inherit;
+}
+
+.app {
+    width: min(1100px, 100%);
+    margin: auto;
+}
+
+header {
+    background: linear-gradient(120deg, #173e7a, #347bd0);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 12px 30px #2457a726;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-icon {
+    font-size: 48px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(23px, 4vw, 34px);
+}
+
+header p {
+    margin: 8px 0 0;
+    color: #e3edff;
+}
+
+.tagline {
+    text-align: right;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+main {
+    margin-top: 22px;
+    background: white;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 8px 30px #173e7a0d;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+h2 {
+    margin: 0 0 8px;
+    font-size: 25px;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.stats {
+    display: flex;
+    gap: 22px;
+    padding: 16px 22px;
+    background: var(--blue-light);
+    border-radius: 18px;
+}
+
+.stat {
+    min-width: 85px;
+}
+
+.stat-label {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.stat strong {
+    font-size: 25px;
+    color: var(--blue);
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(230px, 0.8fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.card {
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    border: 2px solid #d9e9fb;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #2d69b5, #19477f);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    padding: 6px;
+    box-shadow: 0 4px 8px #173e7a12;
+    transition: transform .18s, background .18s, border .18s;
+    overflow: hidden;
+}
+
+.card:not(.flipped):not(.matched):hover {
+    transform: translateY(-3px);
+    background: #347bd0;
+}
+
+.card-back {
+    font-size: clamp(24px, 4vw, 38px);
+    opacity: .85;
+}
+
+.card.flipped {
+    background: #f5faff;
+    color: var(--text);
+    border-color: var(--blue-mid);
+    cursor: default;
+}
+
+.card.matched {
+    background: #e7f8ef;
+    color: #126a43;
+    border-color: #7bd7a7;
+    cursor: default;
+    animation: pop .25s ease;
+}
+
+.card-image {
+    width: 48%;
+    height: 48%;
+    object-fit: contain;
+}
+
+.card-word {
+    font-size: clamp(11px, 1.5vw, 15px);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+@keyframes pop {
+    50% { transform: scale(1.06); }
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.panel {
+    padding: 20px;
+    border-radius: 18px;
+    background: #f0f7ff;
+}
+
+.panel h3 {
+    margin: 0 0 12px;
+    font-size: 17px;
+}
+
+.feedback {
+    background: #e9f9f0;
+    border: 1px solid #c8eed8;
+}
+
+.feedback h3 {
+    color: #13804d;
+}
+
+#feedbackText {
+    margin: 0;
+    color: #286448;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.progress-track {
+    height: 9px;
+    background: #d4e4f5;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 14px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--green);
+    border-radius: inherit;
+    transition: width .3s;
+}
+
+.progress-label {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 9px;
+}
+
+.instructions {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.primary-btn {
+    border: 0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: white;
+    background: linear-gradient(110deg, #347bd0, #2457a7);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s, opacity .15s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+}
+
+.primary-btn:focus-visible,
+.card:focus-visible {
+    outline: 3px solid #ffbf47;
+    outline-offset: 3px;
+}
+
+footer {
+    text-align: center;
+    padding: 22px 10px 6px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+@media (max-width: 760px) {
+    body {
+        padding: 12px;
+    }
+
+    header {
+        padding: 22px 18px;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    main {
+        padding: 18px 12px;
+    }
+
+    .game-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .memory-grid {
+        gap: 8px;
+    }
+
+    .card {
+        border-radius: 11px;
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .card-word {
+        font-size: clamp(10px, 2.8vw, 14px);
+    }
+
+    .stats {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+    <header>
+        <div class="brand">
+            <span class="brand-icon" aria-hidden="true">📚</span>
+            <div>
+                <h1>English Learning Zone</h1>
+                <p>Play · Learn · Improve</p>
+            </div>
+        </div>
+        <div class="tagline">
+            Small steps,<br>big progress!
+        </div>
+    </header>
+
+    <main>
+        <div class="topbar">
+            <div>
+                <h2>Vocabulary Memory Match</h2>
+                <p class="subtitle">
+                    Combine a palavra em inglês com sua tradução correta.
+                </p>
+            </div>
+
+            <div class="stats" aria-label="Estatísticas do jogo">
+                <div class="stat">
+                    <span class="stat-label">⭐ Score</span>
+                    <strong id="score">0</strong>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">🎯 Pairs</span>
+                    <strong id="pairs">0/6</strong>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">🔄 Moves</span>
+                    <strong id="moves">0</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-layout">
+            <section aria-label="Tabuleiro do jogo">
+                <div class="memory-grid" id="memoryGrid"></div>
+            </section>
+
+            <aside class="sidebar">
+                <section class="panel feedback" aria-live="polite">
+                    <h3 id="feedbackTitle">🌟 Ready to play?</h3>
+                    <p id="feedbackText">
+                        Find the matching English word and Portuguese translation!
+                    </p>
+
+                    <div class="progress-track"
+                         role="progressbar"
+                         aria-label="Progresso do jogo"
+                         aria-valuemin="0"
+                         aria-valuemax="6"
+                         aria-valuenow="0"
+                         id="progressTrack">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-label" id="progressLabel">
+                        0 of 6 pairs found
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h3>💡 How to play</h3>
+                    <ol class="instructions">
+                        <li>Click on a card to reveal it.</li>
+                        <li>Find the English word and its translation.</li>
+                        <li>Correct pair: +10 points.</li>
+                        <li>Wrong pair: -2 points.</li>
+                        <li>Match all pairs to win!</li>
+                    </ol>
+                </section>
+
+                <button class="primary-btn" id="restartBtn" type="button">
+                    ↻ Restart Game
+                </button>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        Every word learned is a step forward. Keep going!
+    </footer>
+</div>
+
+<script>
+"use strict";
+
+// VOCABULARY: add or edit words here.
+const vocabPairs = [
+    { en: "Apple",   pt: "Maçã",      emoji: "🍎" },
+    { en: "Book",    pt: "Livro",     emoji: "📘" },
+    { en: "Dog",     pt: "Cachorro",  emoji: "🐶" },
+    { en: "Water",   pt: "Água",      emoji: "💧" },
+    { en: "House",   pt: "Casa",      emoji: "🏠" },
+    { en: "Car",     pt: "Carro",     emoji: "🚗" }
+];
+
+let flippedCards = [];
+let matchedPairs = 0;
+let score = 0;
+let moves = 0;
+let locked = false;
+let gameFinished = false;
+let turnId = 0;
+
+const grid = document.getElementById("memoryGrid");
+const scoreEl = document.getElementById("score");
+const pairsEl = document.getElementById("pairs");
+const movesEl = document.getElementById("moves");
+const feedbackTitle = document.getElementById("feedbackTitle");
+const feedbackText = document.getElementById("feedbackText");
+const progressBar = document.getElementById("progressBar");
+const progressLabel = document.getElementById("progressLabel");
+const progressTrack = document.getElementById("progressTrack");
+
+function shuffle(array) {
+    // Fisher-Yates: shuffle cards fairly.
+    const result = [...array];
+
+    for (let i = result.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+    }
+
+    return result;
+}
+
+function createCard(card) {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "card";
+    button.setAttribute("aria-label", "Hidden card");
+    button.setAttribute("aria-pressed", "false");
+
+    const back = document.createElement("span");
+    back.className = "card-back";
+    back.textContent = "📖";
+    back.setAttribute("aria-hidden", "true");
+
+    const image = document.createElement("img");
+    image.className = "card-image";
+    image.alt = "";
+    image.hidden = true;
+    image.draggable = false;
+
+    const word = document.createElement("span");
+    word.className = "card-word";
+    word.hidden = true;
+
+    button.append(back, image, word);
+
+    button.addEventListener("click", () => flipCard(button, card));
+
+    // Store references for updating the card.
+    button.cardImage = image;
+    button.cardWord = word;
+    button.cardBack = back;
+
+    return button;
+}
+
+function revealCard(element, card) {
+    element.classList.add("flipped");
+    element.setAttribute("aria-pressed", "true");
+    element.setAttribute("aria-label", card.text);
+
+    element.cardBack.hidden = true;
+    element.cardImage.hidden = false;
+    element.cardWord.hidden = false;
+
+    // Twemoji provides consistent illustrated emoji images.
+    // If the image service is unavailable, the native emoji is used.
+    const codePoints = [...card.emoji]
+        .map(char => char.codePointAt(0).toString(16))
+        .join("-");
+
+    element.cardImage.src =
+        "https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/"
+        + codePoints + ".png";
+
+    element.cardImage.onerror = () => {
+        element.cardImage.hidden = true;
+        element.cardWord.textContent = card.emoji + " " + card.text;
+    };
+
+    element.cardWord.textContent = card.text;
+}
+
+function hideCard(element) {
+    element.classList.remove("flipped");
+    element.setAttribute("aria-pressed", "false");
+    element.setAttribute("aria-label", "Hidden card");
+
+    element.cardBack.hidden = false;
+    element.cardImage.hidden = true;
+    element.cardWord.hidden = true;
+}
+
+function initMemoryGame() {
+    // Invalidate any pending turn.
+    turnId++;
+
+    flippedCards = [];
+    matchedPairs = 0;
+    score = 0;
+    moves = 0;
+    locked = false;
+    gameFinished = false;
+
+    grid.innerHTML = "";
+
+    const cards = [];
+
+    vocabPairs.forEach((pair, index) => {
+        cards.push({
+            id: index,
+            type: "en",
+            text: pair.en,
+            emoji: pair.emoji
+        });
+
+        cards.push({
+            id: index,
+            type: "pt",
+            text: pair.pt,
+            emoji: pair.emoji
+        });
+    });
+
+    shuffle(cards).forEach(card => {
+        grid.appendChild(createCard(card));
+    });
+
+    updateStats();
+
+    feedbackTitle.textContent = "🌟 Ready to play?";
+    feedbackText.textContent =
+        "Find the matching English word and Portuguese translation!";
+}
+
+function flipCard(element, card) {
+    if (
+        locked ||
+        gameFinished ||
+        element.classList.contains("flipped") ||
+        element.classList.contains("matched")
+    ) {
+        return;
+    }
+
+    revealCard(element, card);
+    flippedCards.push({ element, card });
+
+    if (flippedCards.length === 2) {
+        moves++;
+        locked = true;
+        updateStats();
+
+        const currentTurn = ++turnId;
+
+        // Short pause lets the player see both cards.
+        setTimeout(() => {
+            if (currentTurn !== turnId) return;
+            checkMatch();
+        }, 700);
+    }
+}
+
+function checkMatch() {
+    const [first, second] = flippedCards;
+
+    const isMatch =
+        first.card.id === second.card.id &&
+        first.card.type !== second.card.type;
+
+    if (isMatch) {
+        first.element.classList.add("matched");
+        second.element.classList.add("matched");
+
+        first.element.setAttribute("aria-label", first.card.text + ", matched");
+        second.element.setAttribute("aria-label", second.card.text + ", matched");
+
+        matchedPairs++;
+        score += 10;
+
+        feedbackTitle.textContent = "🎉 Excellent!";
+        feedbackText.textContent =
+            "Correct match! You earned 10 points. Keep going!";
+    } else {
+        score = Math.max(0, score - 2);
+
+        feedbackTitle.textContent = "💪 Try again!";
+        feedbackText.textContent =
+            "Not a match. You lost 2 points. Remember the words and try again!";
+
+        const firstElement = first.element;
+        const secondElement = second.element;
+
+        setTimeout(() => {
+            // Do not hide cards from a newly restarted game.
+            if (gameFinished) return;
+            hideCard(firstElement);
+            hideCard(secondElement);
+        }, 350);
+    }
+
+    flippedCards = [];
+    locked = false;
+
+    updateStats();
+
+    if (matchedPairs === vocabPairs.length) {
+        gameFinished = true;
+
+        feedbackTitle.textContent = "🏆 You did it!";
+        feedbackText.textContent =
+            `All pairs matched! Final score: ${score} points in ${moves} moves.`;
+
+        progressLabel.textContent = "All pairs completed! Great job!";
+    }
+}
+
+function updateStats() {
+    scoreEl.textContent = score;
+    pairsEl.textContent = `${matchedPairs}/${vocabPairs.length}`;
+    movesEl.textContent = moves;
+
+    const percentage = (matchedPairs / vocabPairs.length) * 100;
+    progressBar.style.width = percentage + "%";
+
+    progressLabel.textContent =
+        `${matchedPairs} of ${vocabPairs.length} pairs found`;
+
+    progressTrack.setAttribute("aria-valuemax", vocabPairs.length);
+    progressTrack.setAttribute("aria-valuenow", matchedPairs);
+}
+
+document.getElementById("restartBtn")
+    .addEventListener("click", initMemoryGame);
+
+initMemoryGame();
+</script>
+</body>
+</html>
